@@ -436,7 +436,7 @@ func (m *etcdManager) newLivenessProbe(isSecure bool) *corev1.Probe {
 			constants.EtcdClientPort, tlsFlags)
 	}
 	return &corev1.Probe{
-		Handler: corev1.Handler{
+		ProbeHandler: corev1.ProbeHandler{
 			Exec: &corev1.ExecAction{
 				Command: []string{"/bin/sh", "-ec", cmd},
 			},
@@ -455,7 +455,7 @@ func (m *etcdManager) newReadinessProbe(isSecure bool) *corev1.Probe {
 		cmd = fmt.Sprintf("ETCDCTL_API=3 etcdctl --endpoints=https://localhost:%d %s endpoint status", constants.EtcdClientPort, tlsFlags)
 	}
 	return &corev1.Probe{
-		Handler: corev1.Handler{
+		ProbeHandler: corev1.ProbeHandler{
 			Exec: &corev1.ExecAction{
 				Command: []string{"/bin/sh", "-ec", cmd},
 			},

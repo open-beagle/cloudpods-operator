@@ -1,0 +1,13 @@
+ARG BASE=registry.cn-beijing.aliyuncs.com/yunionio/onecloud-base:v0.2
+
+FROM $BASE
+
+ARG AUTHOR=mengkzhaoyun@gmail.com
+ARG VERSION=v3.11.12
+ARG TARGETOS
+ARG TARGETARCH
+LABEL maintainer=$AUTHOR version=$VERSION
+
+COPY ./_output/bin/onecloud-controller-manager-$TARGETARCH /bin/onecloud-controller-manager
+
+ENV TZ Asia/Shanghai
