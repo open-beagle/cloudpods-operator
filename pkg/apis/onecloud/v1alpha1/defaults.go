@@ -256,22 +256,26 @@ func SetDefaults_OnecloudClusterSpec(obj *OnecloudClusterSpec, isEE bool, isEEOr
 	}
 
 	// setting web overview image
-	obj.Web.Overview.Image = getImage(
-		obj.ImageRepository, obj.Web.Overview.Repository,
-		DefaultWebOverviewImageName, obj.Web.Overview.ImageName,
-		obj.Version, obj.Web.Overview.Tag,
-		false, isEE,
-	)
+	if obj.Web.Overview.Image == "" {
+		obj.Web.Overview.Image = getImage(
+			obj.ImageRepository, obj.Web.Overview.Repository,
+			DefaultWebOverviewImageName, obj.Web.Overview.ImageName,
+			obj.Version, obj.Web.Overview.Tag,
+			false, isEE,
+		)
+	}
 	obj.Web.Overview.ImagePullPolicy = corev1.PullIfNotPresent
 	clearContainerSpec(&obj.Web.Overview)
 
 	// setting web docs image
-	obj.Web.Docs.Image = getImage(
-		obj.ImageRepository, obj.Web.Docs.Repository,
-		DefaultWebDocsImageName, obj.Web.Docs.ImageName,
-		obj.Version, obj.Web.Docs.Tag,
-		false, isEE,
-	)
+	if obj.Web.Docs.Image == "" {
+		obj.Web.Docs.Image = getImage(
+			obj.ImageRepository, obj.Web.Docs.Repository,
+			DefaultWebDocsImageName, obj.Web.Docs.ImageName,
+			obj.Version, obj.Web.Docs.Tag,
+			false, isEE,
+		)
+	}
 	obj.Web.Docs.ImagePullPolicy = corev1.PullIfNotPresent
 	clearContainerSpec(&obj.Web.Docs)
 
@@ -304,67 +308,81 @@ func SetDefaults_OnecloudClusterSpec(obj *OnecloudClusterSpec, isEE bool, isEEOr
 	}
 
 	// setting webconsole guacd image
-	obj.Webconsole.Guacd.Image = getImage(
-		obj.ImageRepository, obj.Webconsole.Guacd.Repository,
-		GuacdComponentType, obj.Webconsole.Guacd.ImageName,
-		DefaultGuacdVersion, obj.Webconsole.Guacd.Tag,
-		false, false,
-	)
+	if obj.Webconsole.Guacd.Image == "" {
+		obj.Webconsole.Guacd.Image = getImage(
+			obj.ImageRepository, obj.Webconsole.Guacd.Repository,
+			GuacdComponentType, obj.Webconsole.Guacd.ImageName,
+			DefaultGuacdVersion, obj.Webconsole.Guacd.Tag,
+			false, false,
+		)
+	}
 	obj.Webconsole.Guacd.ImagePullPolicy = corev1.PullIfNotPresent
 	clearContainerSpec(&obj.Webconsole.Guacd)
 
 	// setting sdnagent image
-	obj.HostAgent.SdnAgent.Image = getImage(
-		obj.ImageRepository, obj.HostAgent.SdnAgent.Repository,
-		DefaultSdnAgentImageName, obj.HostAgent.SdnAgent.ImageName,
-		obj.Version, obj.HostAgent.SdnAgent.Tag,
-		useHyperImage, isEE,
-	)
+	if obj.HostAgent.SdnAgent.Image == "" {
+		obj.HostAgent.SdnAgent.Image = getImage(
+			obj.ImageRepository, obj.HostAgent.SdnAgent.Repository,
+			DefaultSdnAgentImageName, obj.HostAgent.SdnAgent.ImageName,
+			obj.Version, obj.HostAgent.SdnAgent.Tag,
+			useHyperImage, isEE,
+		)
+	}
 	obj.HostAgent.SdnAgent.ImagePullPolicy = corev1.PullIfNotPresent
 	clearContainerSpec(&obj.HostAgent.SdnAgent)
 
 	// setting ovn image
-	obj.HostAgent.OvnController.Image = getImage(
-		obj.ImageRepository, obj.HostAgent.OvnController.Repository,
-		DefaultOvnImageName, obj.HostAgent.OvnController.ImageName,
-		DefaultOvnImageTag, obj.HostAgent.OvnController.Tag,
-		false, isEE,
-	)
+	if obj.HostAgent.OvnController.Image == "" {
+		obj.HostAgent.OvnController.Image = getImage(
+			obj.ImageRepository, obj.HostAgent.OvnController.Repository,
+			DefaultOvnImageName, obj.HostAgent.OvnController.ImageName,
+			DefaultOvnImageTag, obj.HostAgent.OvnController.Tag,
+			false, isEE,
+		)
+	}
 	obj.HostAgent.OvnController.ImagePullPolicy = corev1.PullIfNotPresent
 	clearContainerSpec(&obj.HostAgent.OvnController)
 
-	obj.OvnNorth.Image = getImage(
-		obj.ImageRepository, obj.OvnNorth.Repository,
-		DefaultOvnImageName, obj.OvnNorth.ImageName,
-		DefaultOvnImageTag, obj.OvnNorth.Tag,
-		false, isEE,
-	)
+	if obj.OvnNorth.Image == "" {
+		obj.OvnNorth.Image = getImage(
+			obj.ImageRepository, obj.OvnNorth.Repository,
+			DefaultOvnImageName, obj.OvnNorth.ImageName,
+			DefaultOvnImageTag, obj.OvnNorth.Tag,
+			false, isEE,
+		)
+	}
 	obj.OvnNorth.ImagePullPolicy = corev1.PullIfNotPresent
 	clearContainerSpec(&obj.OvnNorth.ContainerSpec)
 	// host-image
-	obj.HostImage.Image = getImage(
-		obj.ImageRepository, obj.HostImage.Repository,
-		DefaultHostImageName, obj.HostImage.ImageName,
-		DefaultHostImageTag, obj.HostImage.Tag,
-		false, isEE,
-	)
+	if obj.HostImage.Image == "" {
+		obj.HostImage.Image = getImage(
+			obj.ImageRepository, obj.HostImage.Repository,
+			DefaultHostImageName, obj.HostImage.ImageName,
+			DefaultHostImageTag, obj.HostImage.Tag,
+			false, isEE,
+		)
+	}
 	// setting host health image
-	obj.HostAgent.HostHealth.Image = getImage(
-		obj.ImageRepository, obj.HostAgent.HostHealth.Repository,
-		DefaultHostHealthName, obj.HostAgent.HostHealth.ImageName,
-		DefaultHostHealthTag, obj.HostAgent.HostHealth.Tag,
-		false, isEE,
-	)
+	if obj.HostAgent.HostHealth.Image == "" {
+		obj.HostAgent.HostHealth.Image = getImage(
+			obj.ImageRepository, obj.HostAgent.HostHealth.Repository,
+			DefaultHostHealthName, obj.HostAgent.HostHealth.ImageName,
+			DefaultHostHealthTag, obj.HostAgent.HostHealth.Tag,
+			false, isEE,
+		)
+	}
 	clearContainerSpec(&obj.HostImage.ContainerSpec)
 
 	// lbagent ovn-controller
 	// setting ovn image
-	obj.Lbagent.OvnController.Image = getImage(
-		obj.ImageRepository, obj.Lbagent.OvnController.Repository,
-		DefaultOvnImageName, obj.Lbagent.OvnController.ImageName,
-		DefaultOvnImageTag, obj.Lbagent.OvnController.Tag,
-		false, isEE,
-	)
+	if obj.Lbagent.OvnController.Image == "" {
+		obj.Lbagent.OvnController.Image = getImage(
+			obj.ImageRepository, obj.Lbagent.OvnController.Repository,
+			DefaultOvnImageName, obj.Lbagent.OvnController.ImageName,
+			DefaultOvnImageTag, obj.Lbagent.OvnController.Tag,
+			false, isEE,
+		)
+	}
 	obj.Lbagent.OvnController.ImagePullPolicy = corev1.PullIfNotPresent
 
 	// telegraf spec
@@ -380,12 +398,14 @@ func SetDefaults_OnecloudClusterSpec(obj *OnecloudClusterSpec, isEE bool, isEEOr
 	//	DefaultTelegrafRaidImageTag, "",
 	//	false, isEE,
 	// )
-	obj.Telegraf.TelegrafRaid.Image = getImage(
-		obj.ImageRepository, obj.Telegraf.TelegrafRaid.Repository,
-		DefaultTelegrafRaidImageName, obj.Telegraf.TelegrafRaid.ImageName,
-		DefaultTelegrafRaidImageTag, obj.Telegraf.TelegrafRaid.Tag,
-		false, isEE,
-	)
+	if obj.Telegraf.TelegrafRaid.Image == "" {
+		obj.Telegraf.TelegrafRaid.Image = getImage(
+			obj.ImageRepository, obj.Telegraf.TelegrafRaid.Repository,
+			DefaultTelegrafRaidImageName, obj.Telegraf.TelegrafRaid.ImageName,
+			DefaultTelegrafRaidImageTag, obj.Telegraf.TelegrafRaid.Tag,
+			false, isEE,
+		)
+	}
 	obj.Telegraf.TelegrafRaid.ImagePullPolicy = corev1.PullIfNotPresent
 	clearContainerSpec(&obj.Telegraf.TelegrafRaid)
 
@@ -421,12 +441,14 @@ func SetDefaults_OnecloudClusterSpec(obj *OnecloudClusterSpec, isEE bool, isEEOr
 	}
 
 	// setting web overview image
-	obj.Notify.Plugins.Image = getImage(
-		obj.ImageRepository, obj.Notify.Plugins.Repository,
-		DefaultNotifyPluginsImageName, obj.Notify.Plugins.ImageName,
-		obj.Version, obj.Notify.Plugins.Tag,
-		false, isEE,
-	)
+	if obj.Notify.Plugins.Image == "" {
+		obj.Notify.Plugins.Image = getImage(
+			obj.ImageRepository, obj.Notify.Plugins.Repository,
+			DefaultNotifyPluginsImageName, obj.Notify.Plugins.ImageName,
+			obj.Version, obj.Notify.Plugins.Tag,
+			false, isEE,
+		)
+	}
 	obj.Notify.Plugins.ImagePullPolicy = corev1.PullIfNotPresent
 
 	// cloudmon spec
@@ -652,7 +674,10 @@ func SetDefaults_DeploymentSpec(obj *DeploymentSpec, image string) {
 	if obj.Disable {
 		obj.Replicas = 0
 	}
-	obj.Image = image
+	// 只有当用户没有设置 Image 时才使用默认值
+	if obj.Image == "" {
+		obj.Image = image
+	}
 	if string(obj.ImagePullPolicy) == "" {
 		obj.ImagePullPolicy = corev1.PullIfNotPresent
 	}
@@ -673,7 +698,10 @@ func SetDefaults_DeploymentSpec(obj *DeploymentSpec, image string) {
 }
 
 func SetDefaults_DaemonSetSpec(obj *DaemonSetSpec, image string) {
-	obj.Image = image
+	// 只有当用户没有设置 Image 时才使用默认值
+	if obj.Image == "" {
+		obj.Image = image
+	}
 	if string(obj.ImagePullPolicy) == "" {
 		obj.ImagePullPolicy = corev1.PullIfNotPresent
 	}
@@ -693,7 +721,10 @@ func SetDefaults_DaemonSetSpec(obj *DaemonSetSpec, image string) {
 }
 
 func SetDefaults_CronJobSpec(obj *CronJobSpec, image string) {
-	obj.Image = image
+	// 只有当用户没有设置 Image 时才使用默认值
+	if obj.Image == "" {
+		obj.Image = image
+	}
 	if string(obj.ImagePullPolicy) == "" {
 		obj.ImagePullPolicy = corev1.PullIfNotPresent
 	}

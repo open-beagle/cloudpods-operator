@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  BUILD_VERSION: v3.11.12
+  BUILD_VERSION: v3.11.12-beagle
 
 jobs:
   build:
@@ -42,7 +42,7 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            registry.cn-qingdao.aliyuncs.com/wod/onecloud-operator:${{ env.BUILD_VERSION }}-amd64
+            registry.cn-qingdao.aliyuncs.com/wod/onecloud:operator-${{ env.BUILD_VERSION }}-amd64
           build-args: |
             BASE=registry.cn-beijing.aliyuncs.com/yunionio/onecloud-base:v0.2
             AUTHOR=${{ github.repository_owner }}
@@ -56,7 +56,7 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: |
-            registry.cn-qingdao.aliyuncs.com/wod/onecloud-operator:${{ env.BUILD_VERSION }}-arm64
+            registry.cn-qingdao.aliyuncs.com/wod/onecloud:operator-${{ env.BUILD_VERSION }}-arm64
           build-args: |
             BASE=registry.cn-beijing.aliyuncs.com/yunionio/onecloud-base:v0.2
             AUTHOR=${{ github.repository_owner }}
@@ -64,6 +64,6 @@ jobs:
 
       - name: Create Server multi-arch manifest
         run: |
-          docker buildx imagetools create -t registry.cn-qingdao.aliyuncs.com/wod/onecloud-operator:${{ env.BUILD_VERSION }} \
-            registry.cn-qingdao.aliyuncs.com/wod/onecloud-operator:${{ env.BUILD_VERSION }}-amd64 \
-            registry.cn-qingdao.aliyuncs.com/wod/onecloud-operator:${{ env.BUILD_VERSION }}-arm64
+          docker buildx imagetools create -t registry.cn-qingdao.aliyuncs.com/wod/onecloud:operator-${{ env.BUILD_VERSION }} \
+            registry.cn-qingdao.aliyuncs.com/wod/onecloud:operator-${{ env.BUILD_VERSION }}-amd64 \
+            registry.cn-qingdao.aliyuncs.com/wod/onecloud:operator-${{ env.BUILD_VERSION }}-arm64
